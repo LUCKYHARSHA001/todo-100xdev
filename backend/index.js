@@ -33,7 +33,7 @@ app.get("/todo",async function (req, res) {
 
 });
 
-app.put("/completed", function (req, res) {
+app.put("/completed", async function (req, res) {
   const updatePayload = req.body;
   const parsedPayload = updateTodo.safeParse(updatePayload);
   if (!parsedPayload.success) {
@@ -42,5 +42,12 @@ app.put("/completed", function (req, res) {
     });
     return;
   }
-  await.todo
+  await todo.update({
+    _id:req.body.id
+  },{
+    completed:true
+  })
+  res.json({
+    msg:"yes the todo was updated",
+  })
 });
