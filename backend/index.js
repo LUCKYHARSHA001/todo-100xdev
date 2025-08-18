@@ -1,31 +1,46 @@
-const express= require("express");
+const express = require("express");
 const { createTodo, updateTodo } = require("./types");
-const app=express();
+const { todo } = require("./db");
+const app = express();
 
 app.use(express.json());
 
-app.post("/todo",function(req, res){
-  const createPayload=req.body;
-  const parsedPayload=createTodo.safeParse(createPayload);
-  if(!parsedPayload.success){
-    req.status(411).json({
-      msg:"you sent wrong inputs",
-    })
-    return ;
+app.post("/todo", async function (req, res) {
+  const createPayload = req.body;
+  const parsedPayload = createTodo.safeParse(createPayload);
+  if (!parsedPayload.success) {
+    res.status(411).json({
+      msg: "you sent wrong inputs",
+    });
+    return;
   }
-})
+  await todo.create({
+    title: createPayload.title,
+    description: createPayload.description,
+    completed: false,
+  });
+  res.json({
+    msg:"Todo Created"
+  })
+});
 
-app.get("/todo",function(req,res){
+app.get("/todo",async function (req, res) {
+  const todos= await todo.find({});
 
-})
+  res.json({
+    todos
+  })
 
-app.put("/completed",function(req,res){
-  const updatePayload=req.body;
-  const parsedPayload=updateTodoTodo.safeParse(updatePayload);
-  if(!parsedPayload.success){
+});
+
+app.put("/completed", function (req, res) {
+  const updatePayload = req.body;
+  const parsedPayload = updateTodo.safeParse(updatePayload);
+  if (!parsedPayload.success) {
     req.status(411).json({
-      msg:"you sent wrong inputs",
-    })
-    return ;
+      msg: "you sent wrong inputs",
+    });
+    return;
   }
-})
+  await.todo
+});
