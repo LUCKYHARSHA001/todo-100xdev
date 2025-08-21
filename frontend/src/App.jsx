@@ -11,12 +11,12 @@ function App() {
       <CreateTodo />
       <Todos todos={[
         {
-          title:"Dhoni",
+          title:"ACC",
           description:"Need to write exam",
           completed:false
         },{
-          title:"Ashrith",
-          description:"need to fix",
+          title:"cn",
+          description:"need to fix shedule",
           completed:true
         }
       ]}></Todos>
